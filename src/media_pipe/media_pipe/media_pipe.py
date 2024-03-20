@@ -41,11 +41,9 @@ class media_pipe_node(Node):
            raise ValueError("Head Coordinates are None")
         
         if self.head_x != -1 and self.head_y != -1:
-            player_head_pos = PlayerCommand()
-            self.get_logger().info('Ready to publish the head positions')
-            player_head_pos.head_pos = [float(self.head_x), float(self.head_y)]
-            player_head_pos.frame_pos = [float(self.head_x) * width, float(self.head_y) * height]
-            self.pub_player_head_pos.publish(player_head_pos)
+            y_pos = Float64()
+            y_pos.data = self.head_y
+            self.pub_player_head_pos.publish(y_pos)
             self.get_logger().info(f'Head Position: x: {self.head_x} y: {self.head_y}')
         else:
             self.get_logger().info('No face detected')
